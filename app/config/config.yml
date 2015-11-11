@@ -6,7 +6,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: pl
 
 framework:
     #esi:             ~
@@ -40,7 +40,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ AppBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -82,4 +82,21 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: Daily\AppBundle\Entity\User
+#    registration:
+#        form:
+#            type: daily_user_registration
+    
+easy_admin:
+    entities:
+        - Daily\AppBundle\Entity\Category
+        - Daily\AppBundle\Entity\Comment
+        - Daily\AppBundle\Entity\Post
+        - Daily\AppBundle\Entity\Rating
+        - Daily\AppBundle\Entity\User
+        
+doctrine_migrations:
+    dir_name: %kernel.root_dir%/migrations
+    namespace: Application\Migration
+    table_name: migration_versions
+    name: Application Migrations

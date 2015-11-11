@@ -1,9 +1,11 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -22,19 +24,19 @@ class User extends BaseUser
      */
     protected $id;
 
-    /**
-     * @var string
+     /**
+     * @ORM\Column(type="string", length=255)
      *
-     * @ORM\Column(name="userName", type="string", length=255)
      */
-    private $userName;
-
+    
+    protected $firstName;
+    
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255)
      *
-     * @ORM\Column(name="userSecondname", type="string", length=255)
      */
-    private $userSecondname;
+    
+    protected $lastName;
 
     /**
      * @var string
@@ -96,49 +98,51 @@ class User extends BaseUser
     }
 
     /**
-     * Set userName
+     * Set firstName
      *
-     * @param string $userName
+     * @param string $firstName
      * @return User
      */
-    public function setUserName($userName)
+    
+    public function setFirstName($firstName)
     {
-        $this->userName = $userName;
-
+        $this->firstName = $firstName;
         return $this;
     }
-
+    
     /**
-     * Get userName
+     * Get firstName
      *
      * @return string 
      */
-    public function getUserName()
+    
+    public function getFirstName()
     {
-        return $this->userName;
+        return $this->firstName;
     }
-
+    
     /**
-     * Set userSecondname
+     * Set lastName
      *
-     * @param string $userSecondname
+     * @param string $lastName
      * @return User
      */
-    public function setUserSecondname($userSecondname)
+    
+    public function setLastName($lastName)
     {
-        $this->userSecondname = $userSecondname;
-
+        $this->lastName = $lastName;
         return $this;
     }
-
+    
     /**
-     * Get userSecondname
+     * Get lastName
      *
      * @return string 
      */
-    public function getUserSecondname()
+    
+    public function getLastName()
     {
-        return $this->userSecondname;
+        return $this->lastName;
     }
 
     /**
