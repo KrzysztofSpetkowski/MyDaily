@@ -3,11 +3,43 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        
+        {% block nav %}
+        <ul class="nav nav-pills">
+            {#
+            <li role="presentation"><a href="{{ path('set_locale', {'locale': 'en'}) }}">EN</a></li> 
+            <li role="presentation"><a href="{{ path('set_locale', {'locale': 'pl'}) }}">PL</a></li>
+            #}
+            
+            {% if app.user %}
+                <li role="presentation"><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Wyloguj</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li role="presentation"><a href="{{ path('admin') }}">Panel admina</a></li>
+                {% endif %}
+            {% else %}
+                <li role="presentation"><a href="{{ path('fos_user_security_login') }}">Zaloguj</a></li>
+                <li role="presentation"><a href="{{ path('fos_user_registration_register') }}">Zarejestruj</a></li>
+            {% endif %}
+            
+        </ul>
+        {% endblock %}
+        
+        <div class="container">        
+                  
+            {% block body %}{% endblock %}
+            {% block footer %}{% endblock %}        
+        </div>
+        
+        {% block javascripts %}
+            <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 </html>

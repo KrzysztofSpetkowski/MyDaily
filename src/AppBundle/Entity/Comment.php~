@@ -189,7 +189,30 @@ class Comment
     {
         return $this->commentId;
     }
-    
+
+    /**
+     * Set postId
+     *
+     * @param string $postId
+     * @return Comment
+     */
+    public function setPostId($postId)
+    {
+        $this->postId = $postId;
+
+        return $this;
+    }
+
+    /**
+     * Get postId
+     *
+     * @return string 
+     */
+    public function getPostId()
+    {
+        return $this->postId;
+    }
+
     /**
      * Set post
      *

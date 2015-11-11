@@ -53,7 +53,7 @@ class Category
      * @ORM\OneToMany(targetEntity="Post", mappedBy="categories")
      * @var ArrayCollection
      */
-    private $post;
+    private $posts;
 
 
 
@@ -158,27 +158,5 @@ class Category
     public function getCommentId()
     {
         return $this->commentId;
-    }
-    /**
-     * Set post
-     *
-     * @param string $post
-     * @return Post
-     */
-    public function setPost($post)
-    {
-        $this->post = $post;
-
-        return $this;
-    }
-
-    /**
-     * Get post
-     *
-     * @return string 
-     */
-    public function getPost()
-    {
-        return $this->spost;
     }
 }
