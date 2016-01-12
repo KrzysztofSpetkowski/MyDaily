@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Strona główna{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         {% endblock %}
@@ -17,16 +17,16 @@
             <li role="presentation"><a href="{{ path('set_locale', {'locale': 'pl'}) }}">PL</a></li>
             #}
             
-            {% if app.user %}
-                <li role="presentation"><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
-                <li role="presentation"><a href="{{ path('fos_user_security_logout') }}">Wyloguj</a></li>
+           {# {% if app.user %}
+                <li <a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                <li <a href="{{ path('fos_user_security_logout') }}">Wyloguj</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <li role="presentation"><a href="{{ path('admin') }}">Panel admina</a></li>
+                    <li <a href="{{ path('admin') }}">Panel admina</a></li>
                 {% endif %}
             {% else %}
-                <li role="presentation"><a href="{{ path('fos_user_security_login') }}">Zaloguj</a></li>
-                <li role="presentation"><a href="{{ path('fos_user_registration_register') }}">Zarejestruj</a></li>
-            {% endif %}
+                <li <a href="{{ path('fos_user_security_login') }}">Zaloguj</a></li>
+                <li <a href="{{ path('fos_user_registration_register') }}">Zarejestruj</a></li>
+            {% endif %}#}
             
         </ul>
         {% endblock %}

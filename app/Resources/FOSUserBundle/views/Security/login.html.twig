@@ -56,7 +56,7 @@
     <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
         <h2 class="form-signin-heading">Zaloguj się</h2>
         
-        <label for="name">{{ 'security.login.name'|trans }}</label>
+        <label for="name">{{ 'security.login.username'|trans }}</label>
         <input type="text" class="form-control" id="name" name="_name" value="{{ last_username }}" required="required" autofocus>
   
         <label for="password">{{ 'security.login.password'|trans }}</label>
