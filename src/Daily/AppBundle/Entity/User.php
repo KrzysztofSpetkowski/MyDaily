@@ -25,15 +25,13 @@ class User extends BaseUser
     protected $id;
 
      /**
-     * @ORM\Column(type="string", length=255)
-     *
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      */
     
     protected $firstName;
     
     /**
-     * @ORM\Column(type="string", length=255)
-     *
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      */
     
     protected $lastName;
@@ -41,35 +39,35 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="userEmail", type="string", length=255)
+     * @ORM\Column(name="userEmail", type="string", length=255, nullable=true)
      */
     private $userEmail;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="userPassword", type="string", length=255)
+     * @ORM\Column(name="userPassword", type="string", length=255, nullable=true)
      */
     private $userPassword;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdBy", type="datetime")
+     * @ORM\Column(name="createdBy", type="datetime", nullable=true)
      */
     private $createdBy;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ratings", type="string", length=255)
+     * @ORM\Column(name="ratings", type="string", length=255, nullable=true)
      */
     private $ratings;
 
