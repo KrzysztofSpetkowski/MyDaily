@@ -1,5 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Homepage.
+     <centre><h3 class="text-muted">Daily- mój dziennik</h3></centre>
+   
+           <div class="navbar-collapse collapse" id="navbar">
+                
+                {{ knp_menu_render('AppBundle:Builder:mainMenu') }}
+
+           </div> 
+       {# <form  class="navbar-form navbar-left" method="post" action="{{ path('bootcamp_jobeet_search') }}" > 
+        <input class="form-control" id="position" name="position" placeholder="wpisz czego szukasz" type="text" />
+        <button type="submit" id="submitButton" class="btn btn-primary">Wyszukaj</button> 
+        </form> #}
+     
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+            
+            <div class="alert alert-success" role="alert">
+                {{ flashMessage }}
+  
+            </div>
+    
+
+        {% endfor %}
+    
+        
+
+          <!-- Site footer -->
+            <div class="footer">
+            <p>&copy;k.spetkowski@wp.pl Company 2016</p>
 {% endblock %}
