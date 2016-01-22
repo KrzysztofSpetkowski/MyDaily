@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Rating
  *
- * @ORM\Table()
+ * @ORM\Table(name="rating")
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RAtingRepository")
  */
 class Rating
 {
@@ -18,6 +19,7 @@ class Rating
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *      * 
      */
     private $id;
 
