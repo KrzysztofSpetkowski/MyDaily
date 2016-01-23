@@ -10,6 +10,6 @@ easy_admin_bundle:
     type:     annotation
     prefix:   /admin
     
-daily_homepage:
-    path:     /
-    defaults: { _controller: AppBundle:Default:index }
+#daily_homepage:
+#    path:     /
+#    defaults: { _controller: AppBundle:Default:index }
