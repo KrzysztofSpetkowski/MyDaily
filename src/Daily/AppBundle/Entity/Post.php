@@ -80,8 +80,8 @@ class Post
      */
     private $category;
     
-    /*
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+    /**
+     * 
      * @var ArrayCollection
      */
     private $comment;

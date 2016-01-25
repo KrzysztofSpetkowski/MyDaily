@@ -71,7 +71,7 @@ class User extends BaseUser
      * @ORM\Column(name="ratings", type="string", length=255, nullable=true)
      * @var ArrayCollection
      */
-    private $ratings;
+    private $rating;
 
     /**
      * @var string
@@ -79,13 +79,20 @@ class User extends BaseUser
      * @var ArrayCollection
      * @ORM\Column(name="comments", type="text")
      */
-    private $comments;
+    private $comment;
     
     /*
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Post", mappedBy="createdBy")
      */
     private $post;
+    
+    /**
+     * @var string
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="users")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
     
     public function __construct()
     {
@@ -316,5 +323,28 @@ class User extends BaseUser
     public function getPost()
     {
         return $this->post;
+    }
+    
+    /**
+     * Set Category
+     *
+     * @param string $category
+     * @return Category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }
