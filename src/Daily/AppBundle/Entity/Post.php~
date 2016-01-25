@@ -1,13 +1,14 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Post
  *
- * @ORM\Table()
+ * @ORM\Table(name="post")
+ * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\PostRepository")
  * @ORM\Entity
  */
 class Post
@@ -37,7 +38,7 @@ class Post
 
     /**
      * @var \DateTime
-     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
      * @ORM\Column(name="createdBy", type="datetime")
      */
     private $createdBy;
@@ -63,8 +64,6 @@ class Post
      */
     private $isAccepted;
     /*
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
      */
     
     private $user;
@@ -279,4 +278,50 @@ class Post
     {
         return $this->isAccepted;
     }
+    /**
+     * Set user
+     *
+     * @param string $user
+     * @return User
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return string 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    /**
+     * Set category
+     *
+     * @param string $category
+     * @return Category
+     */
+    public function setCategor($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+    
+    
 }

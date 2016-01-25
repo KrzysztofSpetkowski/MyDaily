@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Comment
  *
  * @ORM\Table(name="comment")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
+ * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\CommentRepository")
  * @ORM\Entity
  */
 class Comment
@@ -31,7 +31,7 @@ class Comment
 
     /**
      * @var \DateTime
-     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
      * @ORM\Column(name="createdBy", type="datetime")
      */
     private $createdBy;
@@ -59,7 +59,7 @@ class Comment
 
     /**
      * @var string
-     *@ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;

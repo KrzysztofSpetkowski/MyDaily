@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\UserRepository")
  * @ORM\Entity
  */
 class User extends BaseUser
@@ -67,23 +67,37 @@ class User extends BaseUser
 
     /**
      * @var string
-     *
+     * @ORM\OneToMany(targetEntity="Raring", mappedBy="createdBy")
      * @ORM\Column(name="ratings", type="string", length=255, nullable=true)
+     * @var ArrayCollection
      */
     private $ratings;
 
     /**
      * @var string
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="createdBy")
      * @var ArrayCollection
      * @ORM\Column(name="comments", type="text")
      */
     private $comments;
     
     /*
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="users")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="createdBy")
      */
     private $post;
+    
+    public function __construct()
+    {
+    	parent::__construct();
+    	
+    	
+    	$this->roles = ['ROLE_USER'];
+    	
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->commnets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ratings = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     
 
     /**

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="rating")
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="AppBundle\Repository\RAtingRepository")
+ * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\RatingRepository")
  */
 class Rating
 {
@@ -25,7 +25,7 @@ class Rating
 
     /**
      * @var \DateTime
-     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="ratings")
      * @ORM\Column(name="createdBy", type="datetime")
      */
     private $createdBy;
@@ -39,7 +39,7 @@ class Rating
 
     /**
      * @var string
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="ratings")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;

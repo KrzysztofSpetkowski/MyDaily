@@ -1,14 +1,17 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
- * @ORM\Table()
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\UserRepository")
  * @ORM\Entity
  */
 class User extends BaseUser
@@ -22,65 +25,63 @@ class User extends BaseUser
      */
     protected $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="userName", type="string", length=255)
+     /**
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      */
-    private $userName;
+    
+    protected $firstName;
+    
+    /**
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
+     */
+    
+    protected $lastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="userSecondname", type="string", length=255)
-     */
-    private $userSecondname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="userEmail", type="string", length=255)
+     * @ORM\Column(name="userEmail", type="string", length=255, nullable=true)
      */
     private $userEmail;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="userPassword", type="string", length=255)
+     * @ORM\Column(name="userPassword", type="string", length=255, nullable=true)
      */
     private $userPassword;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdBy", type="datetime")
+     * @ORM\Column(name="createdBy", type="datetime", nullable=true)
      */
     private $createdBy;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="ratings", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="Raring", mappedBy="createdBy")
+     * @ORM\Column(name="ratings", type="string", length=255, nullable=true)
      */
     private $ratings;
 
     /**
      * @var string
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="createdBy")
      * @var ArrayCollection
      * @ORM\Column(name="comments", type="text")
      */
     private $comments;
     
     /*
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="users")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="createdBy")
      */
     private $post;
     
@@ -96,49 +97,51 @@ class User extends BaseUser
     }
 
     /**
-     * Set userName
+     * Set firstName
      *
-     * @param string $userName
+     * @param string $firstName
      * @return User
      */
-    public function setUserName($userName)
+    
+    public function setFirstName($firstName)
     {
-        $this->userName = $userName;
-
+        $this->firstName = $firstName;
         return $this;
     }
-
+    
     /**
-     * Get userName
+     * Get firstName
      *
      * @return string 
      */
-    public function getUserName()
+    
+    public function getFirstName()
     {
-        return $this->userName;
+        return $this->firstName;
     }
-
+    
     /**
-     * Set userSecondname
+     * Set lastName
      *
-     * @param string $userSecondname
+     * @param string $lastName
      * @return User
      */
-    public function setUserSecondname($userSecondname)
+    
+    public function setLastName($lastName)
     {
-        $this->userSecondname = $userSecondname;
-
+        $this->lastName = $lastName;
         return $this;
     }
-
+    
     /**
-     * Get userSecondname
+     * Get lastName
      *
      * @return string 
      */
-    public function getUserSecondname()
+    
+    public function getLastName()
     {
-        return $this->userSecondname;
+        return $this->lastName;
     }
 
     /**

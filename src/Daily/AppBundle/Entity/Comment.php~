@@ -1,13 +1,14 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Comment
  *
- * @ORM\Table()
+ * @ORM\Table(name="comment")
+ * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\CommentRepository")
  * @ORM\Entity
  */
 class Comment
@@ -30,7 +31,7 @@ class Comment
 
     /**
      * @var \DateTime
-     *
+     * @ORM\ManyToOne(targetEntity="CUSer", inversedBy="comments")
      * @ORM\Column(name="createdBy", type="datetime")
      */
     private $createdBy;
@@ -58,7 +59,7 @@ class Comment
 
     /**
      * @var string
-     *@ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;
@@ -189,30 +190,7 @@ class Comment
     {
         return $this->commentId;
     }
-
-    /**
-     * Set postId
-     *
-     * @param string $postId
-     * @return Comment
-     */
-    public function setPostId($postId)
-    {
-        $this->postId = $postId;
-
-        return $this;
-    }
-
-    /**
-     * Get postId
-     *
-     * @return string 
-     */
-    public function getPostId()
-    {
-        return $this->postId;
-    }
-
+    
     /**
      * Set post
      *

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Post
  *
  * @ORM\Table(name="post")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+ * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\PostRepository")
  * @ORM\Entity
  */
 class Post
@@ -38,7 +38,7 @@ class Post
 
     /**
      * @var \DateTime
-     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
      * @ORM\Column(name="createdBy", type="datetime")
      */
     private $createdBy;
@@ -64,8 +64,6 @@ class Post
      */
     private $isAccepted;
     /*
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
      */
     
     private $user;

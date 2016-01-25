@@ -1,23 +1,23 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Category
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Table(name="category")
+ * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\CategoryRepository")
  */
 class Category
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * 
      */
     private $id;
 
@@ -53,7 +53,7 @@ class Category
      * @ORM\OneToMany(targetEntity="Post", mappedBy="categories")
      * @var ArrayCollection
      */
-    private $posts;
+    private $post;
 
 
 
@@ -158,5 +158,27 @@ class Category
     public function getCommentId()
     {
         return $this->commentId;
+    }
+    /**
+     * Set post
+     *
+     * @param string $post
+     * @return Post
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return string 
+     */
+    public function getPost()
+    {
+        return $this->spost;
     }
 }
