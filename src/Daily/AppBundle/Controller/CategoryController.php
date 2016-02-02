@@ -17,15 +17,14 @@ class CategoryController extends Controller
 {
    
     /**
-     * @Route("/category")
-     * @Template(category.html.twig)
+     * @Route("/category", name="category")
      */
-//    public function indexAction(){
-//        $categories = $this->getDoctrine()
-//            ->getRepository('AppBundle:Category')
-//            ->findAll();
-//        
-//        return array();
-//    }
-            
+    public function indexAction(){
+        $categories = $this->getDoctrine()
+            ->getRepository('AppBundle:Category')
+            ->findAll();
+        return $this->render('Category/category.html.twig', array(
+             'categories' => $categories,
+        ));
+    }       
 }
