@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  
+{% endblock %}
+
+
+
+{% block body %}
+    <div class="container">
+    <h1 class="form-signin-heading">Dodaj nowy post:</h1>
+    
+{{ form(form) }}   
+    </div>
+{% endblock %}

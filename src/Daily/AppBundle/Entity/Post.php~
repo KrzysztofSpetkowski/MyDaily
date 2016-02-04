@@ -85,6 +85,18 @@ class Post
      * @var ArrayCollection
      */
     private $comment;
+    
+    /**
+     * 
+     * @var string
+     */
+    private $author;
+    
+    /**
+     * 
+     * @var text
+     */
+    private $describtion;
     /**
      * Get id
      *

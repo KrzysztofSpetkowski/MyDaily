@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}         
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tytul</th>
+            <th>Kategoria</th>
+            <th>Autor</th>
+            <th>Streszczenia</th>
+            <th>Data dodania</th>
+             <a href="{{ path('add_posts') }}" class="btn btn-primary pull-right">Dodaj nowy post</a>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.category }}</td>
+                <td>{{ post.user }}</td>
+                <td>{{ post.description }}</td>
+                <td>{{ post.createdAt |date('y-m-d H:i:s') }}</td>   
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Brak postów!</td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{#         {{ knp_pagination_render(pages) }}#}
+{% endblock %}
