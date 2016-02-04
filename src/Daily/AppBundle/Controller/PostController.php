@@ -11,24 +11,36 @@ namespace Daily\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityRepository;
 
 use Daily\AppBundle\Entity\Post;
 use Daily\AppBundle\Form\PostType;
 
 class PostController extends Controller 
 {
+     
     /**
      * @Route("/new_posts", name="new_posts")
      */
-    public function listAction() {
-       
-        $em = $this->getDoctrine()->getManager();
-        $posts = $em
-            ->getRepository('AppBundle:Post')
-            ->findAll();
-
+    public function listAction(Request $request) {
+//        $getPostQuery = $this->getDoctrine()
+//                ->getRepository('AppBundle:Post')
+//                ->getPostQuery($this->getUser());
+        $em    = $this->get('doctrine.orm.entity_manager');
+        $dql   = "SELECT p FROM AppBundle:Post p";
+        $query = $em->createQuery($dql);
+                
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+//            $getPostQuery,
+            $query,
+            $request->query->get('page', 1),
+            5   
+                );
+                
         return $this->render('Post/post.html.twig', array(
-            'posts' => $posts,
+            'pages' => $pagination,
         ));
     }
     
