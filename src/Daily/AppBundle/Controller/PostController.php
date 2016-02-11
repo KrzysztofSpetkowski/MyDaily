@@ -77,4 +77,28 @@ class PostController extends Controller
         ));
         }
     }
+    
+    /**
+     * @Route("/szukaj", name="posts_search")
+     */
+    public function searchAction (Request $request){
+        
+        $query = $request->query->get('query');
+     
+        
+        $posts = $this->getDoctrine()
+            ->getRepository('AppBundle:Post')
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.title LIKE :query')
+            ->orWhere('p.description LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
+        
+        return $this->render('Post/search.html.twig', [
+            'query'     => $query,
+            'posts'  => $posts
+        ]);
+    }
 }
