@@ -3,6 +3,7 @@
 namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -21,6 +22,17 @@ class Comment
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     * 
+     * @Assert\NotBlank(message="Proszę wprowadzić treść komentarza.")
+     * @Assert\Length(min=15, minMessage="Komentarz musi posiadać conajmniej {{ limit }} znaków.")
+     */
+    private $content;
 
     /**
      * @var string
@@ -70,6 +82,10 @@ class Comment
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+    
+    public function __construct() {
+        $this->createdAt = new \DateTime("now");
+    }
     
 
 

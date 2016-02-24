@@ -3,6 +3,9 @@
 namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
@@ -24,8 +27,9 @@ class Post
 
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank(message="Proszę wprowadzić tytuł postu")
      */
     private $title;
 
@@ -63,9 +67,11 @@ class Post
      * @ORM\Column(name="isAccepted", type="string", length=255)
      */
     private $isAccepted;
-    /*
-     */
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Daily\AppBundle\Entity\User", inversedBy="posts")
+     * 
+     */
     private $user;
     
     /*
@@ -76,7 +82,8 @@ class Post
     
     /*
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
-     * @ORM\JoinColumn(name="mem_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @Assert\NotBlank(message="Proszę wprowadzić kategorię")
      */
     private $category;
     
@@ -85,18 +92,19 @@ class Post
      * @var ArrayCollection
      */
     private $comment;
-    
+       
     /**
-     * 
      * @var string
+     * @ORM\Column(name="description")
+     * @Assert\NotBlank(message="Proszę wprowadzić opis")
      */
-    private $author;
+    private $description;
     
-    /**
-     * 
-     * @var text
-     */
-    private $describtion;
+    public function __construct() 
+    {
+        $this->createdAt = new \DateTime('now');
+    }
+    
     /**
      * Get id
      *
@@ -318,7 +326,7 @@ class Post
      * @param string $category
      * @return Category
      */
-    public function setCategor($category)
+    public function setCategory($category)
     {
         $this->category = $category;
 
@@ -333,6 +341,29 @@ class Post
     public function getCategory()
     {
         return $this->category;
+    }
+    
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return User
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
     
     

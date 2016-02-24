@@ -4,7 +4,12 @@
     {{ parent() }}
 {% endblock %}
 {% block body %}
-
+{# <div class="thumbnail clearfix">
+        {% if product.imageName %}
+            <img src="{{ vich_uploader_asset(product, 'product_image') | imagine_filter('product_image_thumb') }}" alt="" class="img-thumbnail">
+        {% else %}
+            <img src="http://placehold.it/240x200" alt="" class="img-thumbnail">
+        {% endif %}#}
 
 <table class="table table-hover">
     <thead>
@@ -39,4 +44,5 @@
 </table>
 
          {{ knp_pagination_render(pages) }}
+ </div>
 {% endblock %}

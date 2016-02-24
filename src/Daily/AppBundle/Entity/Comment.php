@@ -3,6 +3,7 @@
 namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -21,11 +22,22 @@ class Comment
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
+    
     /**
      * @var string
      *
-     * @ORM\Column(name="userName", type="string", length=255)
+     * @ORM\Column(name="content", type="text")
+     * 
+     * @Assert\NotBlank(message="Proszę wprowadzić treść komentarza.")
+     * @Assert\Length(min=15, minMessage="Komentarz musi posiadać conajmniej {{ limit }} znaków.")
+     */
+    private $content;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="userName", type="string", length=255, nullable=false)
      */
     private $userName;
 
@@ -70,6 +82,10 @@ class Comment
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+    
+    public function __construct() {
+        $this->createdAt = new \DateTime("now");
+    }
     
 
 
@@ -227,7 +243,7 @@ class Comment
      * @param \AppBundle\Entity\Post $post
      * @return Comment
      */
-    public function setPost(\AppBundle\Entity\Post $post = null)
+    public function setPost( $post = null)
     {
         $this->post = $post;
 
@@ -242,5 +258,28 @@ class Comment
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Comment
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }

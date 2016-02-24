@@ -16,6 +16,8 @@ use Doctrine\ORM\EntityRepository;
 
 use Daily\AppBundle\Entity\Post;
 use Daily\AppBundle\Form\PostType;
+use Daily\AppBundle\Entity\Comment;
+use Daily\AppBundle\Form\CommentType;
 
 class PostController extends Controller 
 {
@@ -99,6 +101,36 @@ class PostController extends Controller
         return $this->render('Post/search.html.twig', [
             'query'     => $query,
             'posts'  => $posts
+        ]);
+    }
+    /**
+     * @Route("/post/{id}", name="post_show")
+     */
+    public function showAction(Post $post, Request $request){
+        
+        $comment = new Comment();
+        $comment->setPost($post);
+        
+        $form = $this->createForm(new CommentType(), $comment);
+        
+         $form->handleRequest($request);
+        
+        if ($form->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            $em->persist($comment);
+            $em->flush();
+            
+            $this->addFlash('notice', "Komentarz został pomyślnie zapisany.");
+            
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+        }
+        
+        return $this->render('Post/show.html.twig', [
+            'post' => $post,
+            'form' => $form->createView()
+                
         ]);
     }
 }
