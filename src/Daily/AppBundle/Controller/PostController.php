@@ -104,33 +104,61 @@ class PostController extends Controller
         ]);
     }
     /**
-     * @Route("/post/{id}", name="post_show")
+     * @Route("/post/{slug}", name="post_show")
      */
-    public function showAction(Post $post, Request $request){
-        
+    public function showAction(Post $post, Request $request)
+    { 
+        // pobieramy aktualnie zalogowanego użytkownika
+        $user = $this->getUser();
+        // tworzymy nowy komentarz
         $comment = new Comment();
+        // przypisujemy produkt do komentarza
         $comment->setPost($post);
+        // przypisuje zalogowanego użytkownika do komentarz
+        $comment->setUser($user);
         
         $form = $this->createForm(new CommentType(), $comment);
         
-         $form->handleRequest($request);
         
+        // przetwarzamy dane wysłane z formularza - jeśli jakieś dane zostały wysłane
+        $form->handleRequest($request);
+        
+        // jeśli formularz został wysłane, a użytkownik nie jest zalogowany
+        if ($form->isSubmitted() && !$user) {
+            $this->addFlash('danger', "Aby móc dodawać komentarze musisz się wcześniej zalogować.");
+            return $this->redirectToRoute('post_show', ['slug' => $post->getSlug()]);
+        }
+        // jeśli formularz został wysłane i wszystkie wprowadzone dane sa poprawne
         if ($form->isValid()) {
             
-            $em = $this->getDoctrine()->getManager();
+            // jeśli użytkownik posiada uprawnienia administratora
+            if ($user->hasRole('ROLE_ADMIN')) {
+                // oznaczamy komentarz jako zweryfikowany
+                $comment->setVerified(true);
+            }
             
+            // pobieramy EntityManager
+            $em = $this->getDoctrine()->getManager();
+            // zapisujemy komentarz do bazy danych
             $em->persist($comment);
             $em->flush();
             
-            $this->addFlash('notice', "Komentarz został pomyślnie zapisany.");
+            // jeśli użytkownik posiada uprawnienia admina
+            if ($user->hasRole('ROLE_ADMIN')) {
+            // if ($user->isAdmin()) {
+                $this->addFlash('success', "Komentarz został pomyślnie zapisany i opublikowany");
+            } else {
+                $this->addFlash('success', "Komentarz został pomyślnie zapisany i oczekuje na weryfikacje");
+            }
             
-            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+            return $this->redirectToRoute('post_show', ['slug' => $post->getSlug()]);
         }
         
         return $this->render('Post/show.html.twig', [
-            'post' => $post,
-            'form' => $form->createView()
-                
+            'post'   => $post,
+            'form'      => $form->createView()
         ]);
     }
+    
+   
 }

@@ -35,9 +35,9 @@ class Comment
     private $content;
 
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="userName", type="string", length=255)
+     * @ORM\Column(name="userName", type="string", length=255, nullable=false)
      */
     private $userName;
 
@@ -76,10 +76,10 @@ class Comment
      */
     private $post;
     
-    /**
-     * @var string
+   /**
+     * @var User
+     * 
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
     
@@ -243,7 +243,7 @@ class Comment
      * @param \AppBundle\Entity\Post $post
      * @return Comment
      */
-    public function setPost(\AppBundle\Entity\Post $post = null)
+    public function setPost( $post = null)
     {
         $this->post = $post;
 
@@ -258,5 +258,28 @@ class Comment
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Comment
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }

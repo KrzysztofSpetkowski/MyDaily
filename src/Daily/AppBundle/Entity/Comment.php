@@ -4,6 +4,7 @@ namespace Daily\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Comment
@@ -76,10 +77,10 @@ class Comment
      */
     private $post;
     
-    /**
-     * @var string
+   /**
+     * @var User
+     * 
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
     
@@ -243,7 +244,7 @@ class Comment
      * @param \AppBundle\Entity\Post $post
      * @return Comment
      */
-    public function setPost( $post = null)
+    public function setPost(\AppBundle\Entity\Post $post = null)
     {
         $this->post = $post;
 

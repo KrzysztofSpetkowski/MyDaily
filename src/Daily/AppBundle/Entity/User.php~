@@ -73,11 +73,10 @@ class User extends BaseUser
      */
     private $rating;
 
-    /**
-     * @var string
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="createdBy")
+   /**
      * @var ArrayCollection
-     * @ORM\Column(name="comments", type="text")
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
      */
     private $comment;
     
@@ -392,5 +391,28 @@ class User extends BaseUser
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Daily\AppBundle\Entity\Comment $comment
+     * @return User
+     */
+    public function addComment(\Daily\AppBundle\Entity\Comment $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Daily\AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Daily\AppBundle\Entity\Comment $comment)
+    {
+        $this->comment->removeElement($comment);
     }
 }
