@@ -99,12 +99,12 @@ class PostController extends Controller
             ->getResult();
         
         return $this->render('Post/search.html.twig', [
-            'query'     => $query,
+            'query'  => $query,
             'posts'  => $posts
         ]);
     }
     /**
-     * @Route("/post/{slug}", name="post_show")
+     * @Route("/post/{id}", name="post_show")
      */
     public function showAction(Post $post, Request $request)
     { 
@@ -113,11 +113,12 @@ class PostController extends Controller
         // tworzymy nowy komentarz
         $comment = new Comment();
         // przypisujemy produkt do komentarza
-        $comment->setPost($post);
+        $comment->setPost($post); 
         // przypisuje zalogowanego użytkownika do komentarz
         $comment->setUser($user);
         
         $form = $this->createForm(new CommentType(), $comment);
+       
         
         
         // przetwarzamy dane wysłane z formularza - jeśli jakieś dane zostały wysłane
@@ -126,7 +127,7 @@ class PostController extends Controller
         // jeśli formularz został wysłane, a użytkownik nie jest zalogowany
         if ($form->isSubmitted() && !$user) {
             $this->addFlash('danger', "Aby móc dodawać komentarze musisz się wcześniej zalogować.");
-            return $this->redirectToRoute('post_show', ['slug' => $post->getSlug()]);
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
         }
         // jeśli formularz został wysłane i wszystkie wprowadzone dane sa poprawne
         if ($form->isValid()) {
@@ -151,7 +152,7 @@ class PostController extends Controller
                 $this->addFlash('success', "Komentarz został pomyślnie zapisany i oczekuje na weryfikacje");
             }
             
-            return $this->redirectToRoute('post_show', ['slug' => $post->getSlug()]);
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
         }
         
         return $this->render('Post/show.html.twig', [

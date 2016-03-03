@@ -71,9 +71,9 @@ class Comment
     private $commentId;
 
     /**
-     * @var string
+     * @var Post
+     * 
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;
     
@@ -218,10 +218,10 @@ class Comment
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param Daily\AppBundle\Entity\User $user
      * @return User
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser($user = null)
     {
         $this->user = $user;
 
@@ -231,20 +231,20 @@ class Comment
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User 
+     * @return Daily\AppBundle\Entity\User 
      */
     public function getUser()
     {
         return $this->user;
     }
     
-    /**
+   /**
      * Set post
      *
-     * @param \AppBundle\Entity\Post $post
+     * @param Daily\AppBundle\Entity\Post $post
      * @return Comment
      */
-    public function setPost(\AppBundle\Entity\Post $post = null)
+    public function setPost( $post = null)
     {
         $this->post = $post;
 

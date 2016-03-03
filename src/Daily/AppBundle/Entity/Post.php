@@ -13,7 +13,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="Daily\AppBundle\Repository\PostRepository")
- * @ORM\Entity
  */
 class Post
 {
@@ -89,8 +88,9 @@ class Post
     private $category;
     
     /**
-     * 
      * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
      */
     private $comment;
        
@@ -102,7 +102,8 @@ class Post
     private $description;
     
     /**
-     * @ORM\Column(length=255, unique=false)
+     * @var string
+     * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
  
@@ -169,9 +170,9 @@ class Post
     }
 
     /**
-     * Set comment
+     * Add comment
      *
-     * @param string $comment
+     * @param \AppBundle\Entity\Comment $comment
      * @return Post
      */
     public function setComment($comment)
