@@ -18,15 +18,22 @@ class HomepageController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         // pobieramy listę ostatnio dodanych produktów
         $posts = $this->getDoctrine()
             ->getRepository('AppBundle:Post')
             ->findAll();
         
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts,
+            $request->query->get('page', 1),
+            6   
+                );
+        
         return $this->render('base.html.twig', [
-            'posts' => $posts,
+            'posts' => $pagination
         ]);
     }
 

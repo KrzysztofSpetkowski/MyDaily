@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Daily-Strona główna{% endblock %}</title>
@@ -93,17 +94,54 @@
                             <button type="submit" class="btn btn-default">Szukaj</button>
                             </form>
                         </ul>
-     
+                         
+
+        
+            
         
         <div class="container">        
-                  
-            {% block body %}{% endblock %}
-            {% block footer %}{% endblock %}        
-        </div>
+               
+           
         
         {% block javascripts %}
             <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         {% endblock %}
+        
     </body>
+    </br>
+        </br>
+
+    
+    {% block body %}
+        <centre>
+                <p>
+                <centre><h2>Najnowsze posty:</h2></centre>
+                    
+                </p>
+             {% for post in posts %}     
+            {% if loop.first or (loop.index % 3) == 0  %}
+            <div class="row">
+            {% endif %} 
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail clearfix">
+                    <img src="http://placehold.it/240x200" alt="" class="img-thumbnail">
+                    <div class="caption">
+                        <h3><a href="{{ path('post_show', {'id': post.id}) }}">{{ post.title }}</a></h3>
+                        <p>{{ post.description(50, true, ' (...)') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {% if loop.last or (loop.index % 3) == 0  %}
+            </div>
+            {% endif %}
+
+            {% endfor %}
+               {{ knp_pagination_render(posts) }}
+        </centre>
+            {% endblock %}
+            {% block footer %}{% endblock %}        
+        </div>
 </html>

@@ -40,7 +40,7 @@
                                 <span class="text-danger">{{ comment.nbVoteDown }}</span> <a href="{{ path('comment_vote_down', {'id': comment.id}) }}" title="Down" class="vote-down"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>#}
                             </div>
                             <p>{{ comment.content }}</p>
-                            <small>Dodany {{ comment.createdAt|date('d-m-Y') }} przez {{ comment.user }}</small>
+                            <small>Dodany {{ comment.createdAt|date('d-m-Y') }} przez <b>{{ comment.user }}</b></small>
                         </div>
                     </div>
                 {% else %}

@@ -70,7 +70,7 @@ class PostController extends Controller
             $em->flush();
             
             $this->get('session')->getFlashBag()->add('notise', "Twój post został pomyślnie dodany");
-            
+           
             return $this->redirect($this->generateUrl('add_posts'));
         }
         else{

@@ -16,7 +16,7 @@
         <tr>
             <th>#</th>
             <th>Tytul</th>
-            <th>Kategoria</th>
+{#            <th>Kategoria</th>#}
             <th>Autor</th>
             <th>Streszczenia</th>
             <th>Data dodania</th>
@@ -27,8 +27,9 @@
         {% for post in pages %}
             <tr>
                 <td>{{ post.id }}</td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.category }}</td>
+                <td><a href="{{ path('post_show', {'id': post.id}) }}">{{ post.title }}</a></td>
+{#                <td>{{ post.title }}</td>#}
+{#                <td>{{ post.category }}</td>#}
                 <td><a href="{{ path('post_show', {'id': post.id}) }}">{{ post.user }}</a></td>
                 <td>{{ post.description }}</td>
                 <td>{{ post.createdAt |date('y-m-d H:i:s') }}</td>   
