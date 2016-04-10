@@ -1,0 +1,18 @@
+default:
+    extensions:
+        Behat\Symfony2Extension: ~
+        Behat\MinkExtension:
+            base_url: http://localhost/MyDaily/web/app_dev.php/app_test.php
+            selenium2: ~
+        Knp\FriendlyContexts\Extension:
+             entities:
+                 namespaces:
+                    - Daily\Appbundle\Entity
+    swites:
+        site:
+            type: symfony_bundle
+            mink_session: symfony2
+            contexts:
+                
+                - Knp\FriendlyContexts\Context\EntityContext
+                - Knp\FriendlyContexts\Context\tableContext
